@@ -1,5 +1,31 @@
 import gzip, sys
 from collections import Counter
+#from svm_scripts import read_text_ext
+
+def read_text_ext(inp):
+    register = None
+    text = []
+    for line in inp:
+            line=line.strip()
+            if line.startswith("# predicted register"):
+                if register != None:
+                    yield(register, text)
+                    text = []
+                    register=line.split(":")[1].strip()
+                elif register == None:
+                    register=line.split(":")[1].strip()
+            elif not line.startswith("#"):
+                if len(line)== 0:
+                    continue
+                else:
+                    text.append(line.split("\t"))
+            else:
+                continue
+    yield(register, text)
+
+
+
+
 
 def open_f(file):
     if file.endswith("gz"):
@@ -79,19 +105,22 @@ def extract_register(register, data):
     print("Wrote", register, "texts to a file!")
     return(file_out)
 
+#extract_register("opinion", sys.argv[1])
 
 def print_text(data, col, max):
     cols = ["ID","FORM","LEMMA","UPOS","XPOS","FEAT","HEAD","DEPREL","DEPS","MISC"] #the columns of the conllu format
     to_return = []
     text_count = 0
-    for reg, text in read_text(open_f(data)):
+    for reg, text in read_text_ext(open_f(data)):
+      #  print("2", text)
         text_count +=1
         if text_count > max:
             break
         else:
             words = (word_line[cols.index(col)] for word_line in text)
             to_return.append(" ".join(words))
-    return("\n\n".join(to_return))
+#    print("to", to_return)
+    return("\n".join(to_return))
 
 
 def count_specific_lemma(word, data, col):
