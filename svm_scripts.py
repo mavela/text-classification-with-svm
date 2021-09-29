@@ -30,8 +30,6 @@ def save_text_format(file,col):
     text_count = 0
     to_return = []
     out_f = open(file+"_out"+".txt","w")
-    out_f.write(label)
-    out_f.write("\t")
     out_f.write(print_text(file,col,max))
     return
 #    print("printed file", out_f)
