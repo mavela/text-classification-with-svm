@@ -34,4 +34,4 @@ def save_text_format(file,col):
     return
 #    print("printed file", out_f)
             
-print("file saved", save_text_format(sys.argv[1],"FORM"))
+#print("file saved", save_text_format(sys.argv[1],"FORM"))
