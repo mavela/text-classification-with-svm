@@ -59,14 +59,14 @@ f_names=vectorizer.get_feature_names()
 sorted_by_weight=sorted(zip(flat,f_names))
 words = re.compile(r'^[a-zöäåA-ZÖÄÅ]+$')
 
-print("Positive features for Narrative")
-for f_weight,f_name in sorted_by_weight[:40]:
+print("Positive features for the first class")
+for f_weight,f_name in sorted_by_weight[:30]:
     
             if re.search(words,f_name) != None:
                 print(f_name)
  #           print("match", words.match(f_name))
 print()
-print("Positive features for Opinion")
+print("Positive features for the second class")
 for f_weight,f_name in sorted_by_weight[-40:]:
      if re.search(words,f_name) != None:
             print(f_name)
